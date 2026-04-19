@@ -1,0 +1,10 @@
+# MemoryWall environment requirements
+#
+# This is a Node.js / TypeScript application.
+# There are no Python package dependencies for this project.
+#
+# Required runtime:
+# - Node.js 20 or newer
+# - npm 10 or newer
+#
+# Main JavaScript dependencies are defined in package.json.

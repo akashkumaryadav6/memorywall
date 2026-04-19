@@ -132,15 +132,19 @@ function SortableCard({
         ) : (
           <>
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                {item.eventName}
-              </div>
+              {item.eventName.trim() ? (
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  {item.eventName}
+                </div>
+              ) : null}
               <div className="truncate text-sm font-semibold">{item.fileName}</div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="rounded-full bg-accent/40 px-2.5 py-0.5 text-[10px] font-medium text-accent-foreground">
-                {item.tag}
-              </span>
+              {item.tag.trim() ? (
+                <span className="rounded-full bg-accent/40 px-2.5 py-0.5 text-[10px] font-medium text-accent-foreground">
+                  {item.tag}
+                </span>
+              ) : null}
               <span className="text-[10px] text-muted-foreground">{item.id}</span>
             </div>
           </>

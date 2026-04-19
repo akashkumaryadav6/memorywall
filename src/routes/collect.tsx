@@ -76,8 +76,8 @@ function IntakePage() {
         originalName: f.name,
         fileName: `Event_${id}.${isVideo ? "mp4" : "jpg"}`,
         type: isVideo ? "video" : "photo",
-        eventName: "Untitled",
-        tag: "New",
+        eventName: "",
+        tag: "",
         url: URL.createObjectURL(f),
       };
     });

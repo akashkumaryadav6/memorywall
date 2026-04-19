@@ -121,6 +121,8 @@
 
 :root {
   --radius: 0.875rem;
+  --theme-transition-duration: 576ms;
+  --theme-transition-easing: ease-in-out;
   --background: oklch(0.9 0.03 295);
   --foreground: oklch(0.18 0.02 270);
   --card: oklch(0.92 0.02 295);
@@ -172,6 +174,14 @@
   --shadow-elegant: 0 20px 50px -20px oklch(0.55 0.22 285 / 0.25);
   --shadow-card: 0 4px 20px -8px oklch(0.18 0.02 270 / 0.1);
   --shadow-glass: 0 8px 32px -8px oklch(0.55 0.22 285 / 0.2);
+  --share-button-bg: linear-gradient(
+    135deg,
+    oklch(0.58 0.16 300 / 0.62),
+    oklch(0.7 0.12 285 / 0.34)
+  );
+  --share-button-border: oklch(1 0 0 / 0.34);
+  --share-button-text: oklch(0.98 0 0);
+  --share-button-subtle: oklch(0.9 0.01 285 / 0.86);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -238,6 +248,14 @@
   --shadow-elegant: 0 22px 60px -28px oklch(0 0 0 / 0.78);
   --shadow-card: 0 12px 30px -18px oklch(0 0 0 / 0.65);
   --shadow-glass: 0 18px 48px -26px oklch(0 0 0 / 0.78);
+  --share-button-bg: linear-gradient(
+    135deg,
+    oklch(0.34 0.11 300 / 0.92),
+    oklch(0.25 0.09 280 / 0.96)
+  );
+  --share-button-border: oklch(0.62 0.08 300 / 0.42);
+  --share-button-text: oklch(0.96 0.006 280);
+  --share-button-subtle: oklch(0.82 0.01 285 / 0.78);
   --chart-1: oklch(0.72 0.16 292);
   --chart-2: oklch(0.72 0.11 200);
   --chart-3: oklch(0.76 0.12 150);
@@ -251,6 +269,126 @@
   --sidebar-accent-foreground: oklch(0.96 0.006 280);
   --sidebar-border: oklch(0.34 0.02 270);
   --sidebar-ring: oklch(0.78 0.13 292);
+}
+
+.bw {
+  --background: oklch(0.93 0 0);
+  --foreground: oklch(0.2 0 0);
+  --card: oklch(0.89 0 0);
+  --card-foreground: oklch(0.2 0 0);
+  --popover: oklch(0.91 0 0);
+  --popover-foreground: oklch(0.2 0 0);
+  --primary: oklch(0.18 0 0);
+  --primary-foreground: oklch(0.98 0 0);
+  --primary-glow: oklch(0.7 0 0);
+  --secondary: oklch(0.86 0 0);
+  --secondary-foreground: oklch(0.22 0 0);
+  --muted: oklch(0.86 0 0);
+  --muted-foreground: oklch(0.46 0 0);
+  --accent: oklch(0.84 0 0);
+  --accent-foreground: oklch(0.2 0 0);
+  --destructive: oklch(0.3 0 0);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.76 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.2 0 0);
+  --gradient-hero: linear-gradient(180deg, oklch(0.94 0 0), oklch(0.88 0 0));
+  --gradient-soft: linear-gradient(180deg, oklch(0.95 0 0), oklch(0.89 0 0));
+  --gradient-fluid: linear-gradient(180deg, oklch(0.95 0 0), oklch(0.89 0 0));
+  --glass-bg: oklch(0.93 0 0 / 0.88);
+  --glass-bg-strong: oklch(0.9 0 0 / 0.94);
+  --glass-border: oklch(0.72 0 0 / 0.82);
+  --button-hover-glass: oklch(0.87 0 0 / 0.9);
+  --button-hover-text: oklch(0.08 0 0);
+  --button-hover-border: oklch(0.72 0 0 / 1);
+  --button-hover-shadow:
+    0 10px 24px -18px oklch(0 0 0 / 0.22), inset 0 1px 0 oklch(1 0 0 / 0.6),
+    inset 0 -1px 0 oklch(0.7 0 0 / 0.2);
+  --button-hover-text-shadow: none;
+  --shadow-elegant: 0 16px 40px -24px oklch(0 0 0 / 0.18);
+  --shadow-card: 0 8px 24px -18px oklch(0 0 0 / 0.14);
+  --shadow-glass: 0 10px 28px -20px oklch(0 0 0 / 0.18);
+  --share-button-bg: linear-gradient(
+    135deg,
+    oklch(0.56 0 0 / 0.5),
+    oklch(0.72 0 0 / 0.3)
+  );
+  --share-button-border: oklch(0.98 0 0 / 0.3);
+  --share-button-text: oklch(0.1 0 0);
+  --share-button-subtle: oklch(0.26 0 0 / 0.72);
+  --chart-1: oklch(0.2 0 0);
+  --chart-2: oklch(0.35 0 0);
+  --chart-3: oklch(0.5 0 0);
+  --chart-4: oklch(0.65 0 0);
+  --chart-5: oklch(0.8 0 0);
+  --sidebar: oklch(0.9 0 0);
+  --sidebar-foreground: oklch(0.2 0 0);
+  --sidebar-primary: oklch(0.18 0 0);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.86 0 0);
+  --sidebar-accent-foreground: oklch(0.2 0 0);
+  --sidebar-border: oklch(0.76 0 0);
+  --sidebar-ring: oklch(0.2 0 0);
+}
+
+.wb {
+  --background: oklch(0.14 0 0);
+  --foreground: oklch(0.86 0 0);
+  --card: oklch(0.16 0 0);
+  --card-foreground: oklch(0.86 0 0);
+  --popover: oklch(0.16 0 0);
+  --popover-foreground: oklch(0.86 0 0);
+  --primary: oklch(0.86 0 0);
+  --primary-foreground: oklch(0.12 0 0);
+  --primary-glow: oklch(0.78 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.86 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.72 0 0);
+  --accent: oklch(0.26 0 0);
+  --accent-foreground: oklch(0.88 0 0);
+  --destructive: oklch(0.45 0 0);
+  --destructive-foreground: oklch(0.92 0 0);
+  --border: oklch(0.36 0 0);
+  --input: oklch(0.18 0 0);
+  --ring: oklch(0.82 0 0);
+  --gradient-hero: linear-gradient(180deg, oklch(0.14 0 0), oklch(0.1 0 0));
+  --gradient-soft: linear-gradient(180deg, oklch(0.14 0 0), oklch(0.1 0 0));
+  --gradient-fluid: linear-gradient(180deg, oklch(0.14 0 0), oklch(0.1 0 0));
+  --glass-bg: oklch(0.14 0 0 / 0.92);
+  --glass-bg-strong: oklch(0.16 0 0 / 0.98);
+  --glass-border: oklch(0.45 0 0 / 0.7);
+  --button-hover-glass: oklch(0.24 0 0 / 0.95);
+  --button-hover-text: oklch(0.92 0 0);
+  --button-hover-border: oklch(0.52 0 0 / 1);
+  --button-hover-shadow:
+    0 16px 34px -24px oklch(0 0 0 / 0.72), inset 0 1px 0 oklch(1 0 0 / 0.1),
+    inset 0 -1px 0 oklch(1 0 0 / 0.06);
+  --button-hover-text-shadow: none;
+  --shadow-elegant: 0 20px 44px -28px oklch(0 0 0 / 0.82);
+  --shadow-card: 0 10px 26px -20px oklch(0 0 0 / 0.72);
+  --shadow-glass: 0 12px 30px -22px oklch(0 0 0 / 0.8);
+  --share-button-bg: linear-gradient(
+    135deg,
+    oklch(0.3 0.06 300 / 0.96),
+    oklch(0.2 0.05 280 / 0.98)
+  );
+  --share-button-border: oklch(0.56 0.04 300 / 0.42);
+  --share-button-text: oklch(0.9 0 0);
+  --share-button-subtle: oklch(0.78 0 0 / 0.82);
+  --chart-1: oklch(0.9 0 0);
+  --chart-2: oklch(0.75 0 0);
+  --chart-3: oklch(0.6 0 0);
+  --chart-4: oklch(0.45 0 0);
+  --chart-5: oklch(0.3 0 0);
+  --sidebar: oklch(0.15 0 0);
+  --sidebar-foreground: oklch(0.86 0 0);
+  --sidebar-primary: oklch(0.86 0 0);
+  --sidebar-primary-foreground: oklch(0.12 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.86 0 0);
+  --sidebar-border: oklch(0.36 0 0);
+  --sidebar-ring: oklch(0.82 0 0);
 }
 
 @layer base {
@@ -284,6 +422,10 @@
       );
     background-attachment: fixed;
     color-scheme: light;
+    transition:
+      background-color var(--theme-transition-duration) var(--theme-transition-easing),
+      background-image var(--theme-transition-duration) var(--theme-transition-easing),
+      color var(--theme-transition-duration) var(--theme-transition-easing);
   }
 
   .dark body {
@@ -312,11 +454,37 @@
     color-scheme: dark;
   }
 
+  .bw body {
+    background-color: var(--background);
+    background-image: none;
+    color-scheme: light;
+  }
+
+  .wb body {
+    background-color: var(--background);
+    background-image: none;
+    color-scheme: dark;
+  }
+
   button,
   input,
   textarea,
   select {
     color: inherit;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition:
+      background-color var(--theme-transition-duration) var(--theme-transition-easing),
+      background-image var(--theme-transition-duration) var(--theme-transition-easing),
+      border-color var(--theme-transition-duration) var(--theme-transition-easing),
+      color var(--theme-transition-duration) var(--theme-transition-easing),
+      box-shadow var(--theme-transition-duration) var(--theme-transition-easing),
+      fill var(--theme-transition-duration) var(--theme-transition-easing),
+      stroke var(--theme-transition-duration) var(--theme-transition-easing),
+      opacity var(--theme-transition-duration) var(--theme-transition-easing);
   }
 
   input,
@@ -390,6 +558,25 @@
     animation: rainbow-step 16s steps(1, end) infinite;
   }
 
+  .bw .rainbow-btn,
+  .wb .rainbow-btn {
+    background: var(--foreground);
+    color: var(--background);
+    animation: none;
+  }
+
+  .share-btn {
+    background: var(--share-button-bg);
+    border: 1px solid var(--share-button-border);
+    color: var(--share-button-text);
+    backdrop-filter: blur(22px) saturate(165%);
+    -webkit-backdrop-filter: blur(22px) saturate(165%);
+  }
+
+  .share-btn .share-subtle {
+    color: var(--share-button-subtle);
+  }
+
   .glass-hover,
   button:not(:disabled),
   [role="button"],
@@ -398,15 +585,25 @@
   [data-sidebar="menu-sub-button"] {
     transform: translateZ(0);
     transition:
-      background-color 180ms ease,
-      background 180ms ease,
-      border-color 180ms ease,
-      box-shadow 180ms ease,
-      color 180ms ease,
-      filter 180ms ease,
-      opacity 180ms ease,
-      text-shadow 180ms ease,
-      transform 180ms ease;
+      background-color 220ms ease,
+      background 220ms ease,
+      border-color 220ms ease,
+      box-shadow 220ms ease,
+      color 220ms ease,
+      filter 220ms ease,
+      font-size 220ms ease,
+      opacity 220ms ease,
+      text-shadow 220ms ease,
+      transform 220ms ease;
+  }
+
+  .button-hover-content {
+    transition:
+      transform 220ms ease,
+      font-size 220ms ease,
+      color 220ms ease,
+      opacity 220ms ease;
+    transform-origin: center;
   }
 
   .glass-hover:hover,
@@ -415,16 +612,17 @@
   [data-sidebar="menu-button"]:hover,
   [data-sidebar="menu-action"]:hover,
   [data-sidebar="menu-sub-button"]:hover {
-    background: var(--button-hover-glass) !important;
-    backdrop-filter: blur(18px) saturate(170%) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(170%) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border-color: var(--button-hover-border) !important;
     box-shadow: var(--button-hover-shadow) !important;
     color: var(--button-hover-text) !important;
     opacity: 1 !important;
     text-decoration: none !important;
     text-shadow: var(--button-hover-text-shadow) !important;
-    transform: translateY(-1px) scale(1.018);
+    transform: translateY(-1px);
   }
 
   .glass-hover:hover *,
@@ -435,6 +633,15 @@
   [data-sidebar="menu-sub-button"]:hover * {
     color: inherit !important;
     text-shadow: inherit !important;
+  }
+
+  .glass-hover:hover .button-hover-content,
+  button:not(:disabled):hover .button-hover-content,
+  [role="button"]:hover .button-hover-content,
+  [data-sidebar="menu-button"]:hover .button-hover-content,
+  [data-sidebar="menu-action"]:hover .button-hover-content,
+  [data-sidebar="menu-sub-button"]:hover .button-hover-content {
+    transform: scale(1.25);
   }
 
   .rainbow-btn:hover {
@@ -494,20 +701,33 @@
   .rainbow-text {
     background: linear-gradient(
       75deg,
-      #ff4f7a 0%,
-      #ff7a45 14%,
-      #ffb347 28%,
-      #ffe066 42%,
-      #5fd38d 56%,
-      #5bc0ff 70%,
-      #7b74ff 84%,
-      #d783ff 100%
+      #ff004c,
+      #ff8a00,
+      #ffd500,
+      #00d26a,
+      #00b4ff,
+      #6a5cff,
+      #d26aff
     );
-    background-size: 300% 100%;
+    background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: rainbow-pan 3s linear infinite;
+    animation: rainbow-pan 8s linear infinite;
+  }
+
+  .bw .rainbow-text,
+  .wb .rainbow-text {
+    background: none;
+    color: var(--foreground);
+    -webkit-text-fill-color: currentColor;
+    animation: none;
+  }
+
+  .bw .rainbow-ring::before,
+  .wb .rainbow-ring::before {
+    background: var(--foreground);
+    animation: none;
   }
   .rainbow-ring {
     position: relative;

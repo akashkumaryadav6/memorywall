@@ -7,7 +7,6 @@ interface SlideshowProps {
   items: MediaItem[];
   startIndex?: number;
   onClose: () => void;
-  audio: boolean;
   intervalMs?: number;
 }
 
@@ -15,7 +14,6 @@ export function Slideshow({
   items,
   startIndex = 0,
   onClose,
-  audio,
   intervalMs = 4000,
 }: SlideshowProps) {
   const [index, setIndex] = useState(startIndex);
@@ -77,7 +75,7 @@ export function Slideshow({
                   className="h-full w-full object-contain"
                   autoPlay
                   playsInline
-                  muted={!audio}
+                  muted={false}
                   onEnded={() => {
                     if (playing) setIndex((idx) => (idx + 1) % items.length);
                   }}
@@ -97,9 +95,13 @@ export function Slideshow({
       {/* Caption */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-8">
         <div className="mx-auto max-w-4xl">
-          <div className="text-xs uppercase tracking-[0.2em] text-white/60">
-            {current.eventName} · {current.tag}
-          </div>
+          {(current.eventName.trim() || current.tag.trim()) && (
+            <div className="text-xs uppercase tracking-[0.2em] text-white/60">
+              {[current.eventName.trim(), current.tag.trim()]
+                .filter(Boolean)
+                .join(" · ")}
+            </div>
+          )}
           <div className="mt-1 text-2xl font-semibold text-white">{current.fileName}</div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import {
   Sparkles,
   Sun,
   Moon,
+  Contrast,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -15,47 +16,87 @@ const links = [
   { to: "/preview", label: "Share", icon: PlayCircle },
 ];
 
+const themes = ["light", "dark", "bw", "wb"] as const;
+
+type ThemeMode = (typeof themes)[number];
+
 export function AppNav() {
   const loc = useLocation();
-  const [isDark, setIsDark] = useState(() => {
+  const [theme, setTheme] = useState<ThemeMode>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
-      if (saved) return saved === "dark";
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (saved === "light" || saved === "dark" || saved === "bw" || saved === "wb") {
+        return saved;
+      }
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
-    return false;
+    return "light";
   });
+
+  const isDark = theme === "dark";
+  const isBw = theme === "bw";
+  const isWb = theme === "wb";
+  const isMono = isBw || isWb;
 
   useEffect(() => {
     const root = document.documentElement;
-    if (isDark) {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+    root.classList.remove("dark", "bw", "wb");
+    if (theme !== "light") {
+      root.classList.add(theme);
     }
-  }, [isDark]);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+    setTheme(nextTheme);
   };
+
+  const themeLabel =
+    theme === "light"
+      ? "Color"
+      : theme === "dark"
+        ? "Dark"
+        : theme === "bw"
+          ? "Light"
+          : "Contrast";
+
+  const themeTitle =
+    theme === "light"
+      ? "Switch to dark mode"
+      : theme === "dark"
+        ? "Switch to light mode"
+        : theme === "bw"
+          ? "Switch to contrast mode"
+          : "Switch to color mode";
 
   return (
     <>
       <header className="glass-nav">
         <div className="flex items-center justify-between px-4 py-2">
           <Link to="/" className="flex items-center gap-2">
-            <div className="rainbow-btn flex h-8 w-8 items-center justify-center rounded-xl">
+            <div
+              className={`flex h-8 w-8 items-center justify-center rounded-xl ${
+                isMono ? "bg-foreground text-background" : "rainbow-btn"
+              }`}
+            >
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
-              <div className="rainbow-text text-sm font-semibold tracking-tight">
+              <div
+                className={`text-sm font-semibold tracking-tight ${
+                  isMono ? "text-foreground" : "rainbow-text"
+                }`}
+              >
                 MemoryWall
               </div>
               <div
                 className={`text-[10px] uppercase tracking-wider ${
-                  isDark ? "text-white/70" : "text-muted-foreground"
+                  isDark || isWb
+                    ? "text-white/70"
+                    : isBw
+                      ? "text-black/70"
+                      : "text-muted-foreground"
                 }`}
               >
                 Special Occasion Gifts
@@ -73,10 +114,16 @@ export function AppNav() {
                     active
                       ? isDark
                         ? "bg-white text-black shadow-sm hover:bg-white"
-                        : "rainbow-btn shadow-sm"
-                      : isDark
+                        : isBw
+                          ? "bg-black text-white shadow-sm hover:bg-black"
+                          : isWb
+                            ? "bg-white/90 text-black shadow-sm hover:bg-white"
+                            : "rainbow-btn shadow-sm"
+                      : isDark || isWb
                         ? "text-white/78 hover:text-white"
-                        : "text-muted-foreground hover:text-foreground"
+                        : isBw
+                          ? "text-black/70 hover:text-black"
+                          : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -87,15 +134,22 @@ export function AppNav() {
             <button
               onClick={toggleTheme}
               className={`ml-2 flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium transition-all ${
-                isDark ? "text-white/78 hover:text-white" : "text-muted-foreground hover:text-foreground"
+                isDark || isWb
+                  ? "text-white/78 hover:text-white"
+                  : isBw
+                    ? "text-black/70 hover:text-black"
+                    : "text-muted-foreground hover:text-foreground"
               }`}
-              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              title={themeTitle}
             >
-              {isDark ? (
+              {theme === "light" ? (
+                <Moon className="h-4 w-4" />
+              ) : theme === "dark" ? (
                 <Sun className="h-4 w-4" />
               ) : (
-                <Moon className="h-4 w-4" />
+                <Contrast className="h-4 w-4" />
               )}
+              <span className="hidden sm:inline">{themeLabel}</span>
             </button>
           </nav>
         </div>

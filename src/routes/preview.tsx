@@ -7,6 +7,7 @@ import {
   VolumeX,
   Download,
   FileImage,
+  Share2,
 } from "lucide-react";
 import { AppNav } from "@/components/AppNav";
 import { Button } from "@/components/ui/button";
@@ -411,12 +412,14 @@ function PreviewPage() {
   const setBgAudioEnabled = useMediaStore((s) => s.setBgAudioEnabled);
   const [playing, setPlaying] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const [slideshowAt, setSlideshowAt] = useState<number | null>(null);
   // Per-item mute state — default muted (true) for every media item
   const [mutedMap, setMutedMap] = useState<Record<string, boolean>>({});
   const gridRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const bgAudioRef = useRef<HTMLAudioElement>(null);
+  const slideshowResumeAudioRef = useRef(false);
   const [a4PageCount, setA4PageCount] = useState(1);
   const isSingleA4Preview = a4PageCount <= 1;
 
@@ -493,6 +496,39 @@ function PreviewPage() {
   }, [bgAudio]);
 
   useEffect(() => {
+    if (slideshowAt === null) {
+      if (
+        slideshowResumeAudioRef.current &&
+        bgAudioRef.current &&
+        bgAudioUrl &&
+        bgAudio &&
+        playing
+      ) {
+        bgAudioRef.current.muted = false;
+        bgAudioRef.current.play().catch(() => {});
+      }
+      slideshowResumeAudioRef.current = false;
+      return;
+    }
+
+    slideshowResumeAudioRef.current = Boolean(
+      bgAudioRef.current && bgAudioUrl && bgAudio && playing,
+    );
+
+    if (bgAudioRef.current) {
+      bgAudioRef.current.pause();
+    }
+
+    Object.values(videoRefs.current).forEach((video) => {
+      video?.pause();
+    });
+  }, [slideshowAt, bgAudio, bgAudioUrl, playing]);
+
+  const handleCloseSlideshow = () => {
+    setSlideshowAt(null);
+  };
+
+  useEffect(() => {
     const grid = gridRef.current;
     if (!grid || items.length === 0) {
       setA4PageCount(1);
@@ -533,12 +569,11 @@ function PreviewPage() {
     };
   }, [items]);
 
-  const exportAs = async (format: ExportFormat) => {
+  const generateExportBlob = async (format: ExportFormat) => {
     if (!gridRef.current || items.length === 0) {
       toast.error("Nothing to export");
-      return;
+      return null;
     }
-    setExporting(true);
     let exportNode: HTMLElement | null = null;
 
     try {
@@ -557,7 +592,7 @@ function PreviewPage() {
         toast.error(
           "PNG is available only when the preview fits on one A4 page",
         );
-        return;
+        return null;
       }
 
       const canvas = await html2canvas(exportNode, {
@@ -586,21 +621,89 @@ function PreviewPage() {
       });
 
       if (format === "png") {
-        const pngBlob = await canvasToPngBlob(canvas);
-        downloadBlob(pngBlob, `memorywall-${Date.now()}.png`);
-        toast.success("PNG exported successfully!");
+        return {
+          blob: await canvasToPngBlob(canvas),
+          fileName: `memorywall-${Date.now()}.png`,
+        };
       } else {
-        const pdfBlob = await canvasToA4PdfBlob(canvas);
-        downloadBlob(pdfBlob, `memorywall-${Date.now()}.pdf`);
-        toast.success("PDF exported successfully!");
+        return {
+          blob: await canvasToA4PdfBlob(canvas),
+          fileName: `memorywall-${Date.now()}.pdf`,
+        };
       }
     } catch (e) {
       console.error("Export error:", e);
       const message = e instanceof Error ? e.message : String(e);
       toast.error(`Export failed: ${message}`);
+      return null;
     } finally {
       exportNode?.remove();
+    }
+  };
+
+  const exportAs = async (format: ExportFormat) => {
+    setExporting(true);
+    try {
+      const result = await generateExportBlob(format);
+      if (!result) return;
+
+      downloadBlob(result.blob, result.fileName);
+      toast.success(
+        format === "png"
+          ? "PNG exported successfully!"
+          : "PDF exported successfully!",
+      );
+    } finally {
       setExporting(false);
+    }
+  };
+
+  const handleShare = async () => {
+    setSharing(true);
+
+    try {
+      const result = await generateExportBlob("pdf");
+      if (!result) return;
+
+      const file = new File([result.blob], result.fileName, {
+        type: "application/pdf",
+      });
+      const shareText = "Sharing a MemoryWall memory gift PDF.";
+
+      if (
+        typeof navigator !== "undefined" &&
+        "share" in navigator &&
+        "canShare" in navigator &&
+        navigator.canShare?.({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: "MemoryWall Share",
+          text: shareText,
+        });
+        toast.success("Share sheet opened.");
+        return;
+      }
+
+      downloadBlob(result.blob, result.fileName);
+      const whatsappText = encodeURIComponent(
+        `${shareText} The PDF has been downloaded on this device. Attach it in WhatsApp to send.`,
+      );
+      window.open(`https://wa.me/?text=${whatsappText}`, "_blank", "noopener");
+      toast.success("PDF downloaded and WhatsApp opened.");
+    } catch (error) {
+      if (
+        error instanceof DOMException &&
+        error.name === "AbortError"
+      ) {
+        toast.message("Share cancelled.");
+        return;
+      }
+
+      const message = error instanceof Error ? error.message : String(error);
+      toast.error(`Share failed: ${message}`);
+    } finally {
+      setSharing(false);
     }
   };
 
@@ -663,9 +766,18 @@ function PreviewPage() {
 
           <div className="ml-auto flex items-center gap-2">
             <Button
+              variant="share"
+              className="rounded-full"
+              disabled={exporting || sharing}
+              onClick={handleShare}
+            >
+              <Share2 className="mr-2 h-4 w-4" />
+              {sharing ? "Sharing..." : "Share"}
+            </Button>
+            <Button
               variant="outline"
               className="rounded-full"
-              disabled={exporting}
+              disabled={exporting || sharing}
               onClick={() => exportAs("pdf")}
             >
               <Download className="mr-2 h-4 w-4" />
@@ -675,7 +787,7 @@ function PreviewPage() {
               <Button
                 variant="outline"
                 className="rounded-full"
-                disabled={exporting}
+                disabled={exporting || sharing}
                 onClick={() => exportAs("png")}
               >
                 <FileImage className="mr-2 h-4 w-4" />
@@ -765,10 +877,14 @@ function PreviewPage() {
                   )}
 
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-3">
-                    <div className="text-xs font-semibold text-white">
-                      {item.eventName}
-                    </div>
-                    <div className="text-[10px] text-white/70">{item.tag}</div>
+                    {item.eventName.trim() ? (
+                      <div className="text-xs font-semibold text-white">
+                        {item.eventName}
+                      </div>
+                    ) : null}
+                    {item.tag.trim() ? (
+                      <div className="text-[10px] text-white/70">{item.tag}</div>
+                    ) : null}
                   </div>
                 </div>
               );
@@ -813,8 +929,7 @@ function PreviewPage() {
           <Slideshow
             items={items}
             startIndex={slideshowAt}
-            audio={bgAudio}
-            onClose={() => setSlideshowAt(null)}
+            onClose={handleCloseSlideshow}
           />
         )}
       </main>

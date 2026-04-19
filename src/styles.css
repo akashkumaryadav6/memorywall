@@ -494,19 +494,20 @@
   .rainbow-text {
     background: linear-gradient(
       75deg,
-      #ff004c,
-      #ff8a00,
-      #ffd500,
-      #00d26a,
-      #00b4ff,
-      #6a5cff,
-      #d26aff
+      #ff4f7a 0%,
+      #ff7a45 14%,
+      #ffb347 28%,
+      #ffe066 42%,
+      #5fd38d 56%,
+      #5bc0ff 70%,
+      #7b74ff 84%,
+      #d783ff 100%
     );
-    background-size: 200% 100%;
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: rainbow-pan 8s linear infinite;
+    animation: rainbow-pan 3s linear infinite;
   }
   .rainbow-ring {
     position: relative;

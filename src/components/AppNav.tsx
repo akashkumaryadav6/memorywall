@@ -50,11 +50,7 @@ export function AppNav() {
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
-              <div
-                className={`text-sm font-semibold tracking-tight ${
-                  isDark ? "rainbow-text" : ""
-                }`}
-              >
+              <div className="rainbow-text text-sm font-semibold tracking-tight">
                 MemoryWall
               </div>
               <div

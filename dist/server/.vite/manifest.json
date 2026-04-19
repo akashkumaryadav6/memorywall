@@ -1,0 +1,210 @@
+{
+  "%23tanstack-start-plugin-adapters": {
+    "file": "assets/__23tanstack-start-plugin-adapters-Cwee5PKy.js",
+    "name": "__23tanstack-start-plugin-adapters",
+    "src": "%23tanstack-start-plugin-adapters",
+    "isDynamicEntry": true
+  },
+  "D:/memorywall/src/styles.css": {
+    "file": "assets/styles-6PDrH9xb.css",
+    "src": "D:/memorywall/src/styles.css"
+  },
+  "_button-DedvRDMF.js": {
+    "file": "assets/button-DedvRDMF.js",
+    "name": "button",
+    "imports": [
+      "_worker-entry-Le94OTHx.js"
+    ]
+  },
+  "_heart-DoJXn_w3.js": {
+    "file": "assets/heart-DoJXn_w3.js",
+    "name": "heart",
+    "imports": [
+      "_button-DedvRDMF.js"
+    ]
+  },
+  "_jspdf.es.min-DZ7b8yBw.js": {
+    "file": "assets/jspdf.es.min-DZ7b8yBw.js",
+    "name": "jspdf.es.min",
+    "isDynamicEntry": true,
+    "dynamicImports": [
+      "node_modules/html2canvas/dist/html2canvas.esm.js",
+      "node_modules/dompurify/dist/purify.es.mjs",
+      "node_modules/canvg/lib/index.es.js"
+    ]
+  },
+  "_media-store-Cw2u2Zpg.js": {
+    "file": "assets/media-store-Cw2u2Zpg.js",
+    "name": "media-store",
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_router-DqYv53_E.js",
+      "_button-DedvRDMF.js",
+      "_upload-BOXKnkCd.js"
+    ]
+  },
+  "_play-BErrzjwO.js": {
+    "file": "assets/play-BErrzjwO.js",
+    "name": "play",
+    "imports": [
+      "_button-DedvRDMF.js"
+    ]
+  },
+  "_router-DqYv53_E.js": {
+    "file": "assets/router-DqYv53_E.js",
+    "name": "router",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js"
+    ],
+    "dynamicImports": [
+      "src/routes/preview.tsx?tsr-split=component",
+      "src/routes/landing.tsx?tsr-split=component",
+      "src/routes/folder.tsx?tsr-split=component",
+      "src/routes/collect.tsx?tsr-split=component",
+      "src/routes/index.tsx?tsr-split=component"
+    ],
+    "assets": [
+      "assets/styles-6PDrH9xb.css"
+    ]
+  },
+  "_upload-BOXKnkCd.js": {
+    "file": "assets/upload-BOXKnkCd.js",
+    "name": "upload",
+    "imports": [
+      "_button-DedvRDMF.js"
+    ]
+  },
+  "_worker-entry-Le94OTHx.js": {
+    "file": "assets/worker-entry-Le94OTHx.js",
+    "name": "worker-entry",
+    "dynamicImports": [
+      "tanstack-start-manifest:v",
+      "_router-DqYv53_E.js",
+      "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts",
+      "%23tanstack-start-plugin-adapters"
+    ]
+  },
+  "_x-BjhWtc5N.js": {
+    "file": "assets/x-BjhWtc5N.js",
+    "name": "x",
+    "imports": [
+      "_button-DedvRDMF.js"
+    ]
+  },
+  "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts": {
+    "file": "assets/start-HYkvq4Ni.js",
+    "name": "start",
+    "src": "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts",
+    "isDynamicEntry": true
+  },
+  "node_modules/canvg/lib/index.es.js": {
+    "file": "assets/index.es-h0qrZQL_.js",
+    "name": "index.es",
+    "src": "node_modules/canvg/lib/index.es.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_jspdf.es.min-DZ7b8yBw.js"
+    ]
+  },
+  "node_modules/dompurify/dist/purify.es.mjs": {
+    "file": "assets/purify.es-DrqM8w4r.js",
+    "name": "purify.es",
+    "src": "node_modules/dompurify/dist/purify.es.mjs",
+    "isDynamicEntry": true
+  },
+  "node_modules/html2canvas/dist/html2canvas.esm.js": {
+    "file": "assets/html2canvas.esm-C17pzFXx.js",
+    "name": "html2canvas.esm",
+    "src": "node_modules/html2canvas/dist/html2canvas.esm.js",
+    "isDynamicEntry": true
+  },
+  "src/routes/collect.tsx?tsr-split=component": {
+    "file": "assets/collect-BzaFp4tP.js",
+    "name": "collect",
+    "src": "src/routes/collect.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_router-DqYv53_E.js",
+      "_media-store-Cw2u2Zpg.js",
+      "_button-DedvRDMF.js",
+      "_upload-BOXKnkCd.js",
+      "_x-BjhWtc5N.js"
+    ]
+  },
+  "src/routes/folder.tsx?tsr-split=component": {
+    "file": "assets/folder-Cv8qo0CT.js",
+    "name": "folder",
+    "src": "src/routes/folder.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_router-DqYv53_E.js",
+      "_media-store-Cw2u2Zpg.js",
+      "_button-DedvRDMF.js",
+      "_play-BErrzjwO.js",
+      "_upload-BOXKnkCd.js"
+    ]
+  },
+  "src/routes/index.tsx?tsr-split=component": {
+    "file": "assets/index-BXAn85_o.js",
+    "name": "index",
+    "src": "src/routes/index.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_router-DqYv53_E.js",
+      "_button-DedvRDMF.js",
+      "_heart-DoJXn_w3.js"
+    ]
+  },
+  "src/routes/landing.tsx?tsr-split=component": {
+    "file": "assets/landing-B525hBJW.js",
+    "name": "landing",
+    "src": "src/routes/landing.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_router-DqYv53_E.js",
+      "_button-DedvRDMF.js",
+      "_heart-DoJXn_w3.js",
+      "_upload-BOXKnkCd.js"
+    ]
+  },
+  "src/routes/preview.tsx?tsr-split=component": {
+    "file": "assets/preview-BaF5vjbC.js",
+    "name": "preview",
+    "src": "src/routes/preview.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js",
+      "_media-store-Cw2u2Zpg.js",
+      "_button-DedvRDMF.js",
+      "_x-BjhWtc5N.js",
+      "_play-BErrzjwO.js",
+      "_router-DqYv53_E.js",
+      "_upload-BOXKnkCd.js"
+    ],
+    "dynamicImports": [
+      "_jspdf.es.min-DZ7b8yBw.js",
+      "node_modules/html2canvas/dist/html2canvas.esm.js"
+    ]
+  },
+  "tanstack-start-manifest:v": {
+    "file": "assets/_tanstack-start-manifest_v-BsZ6RKiI.js",
+    "name": "_tanstack-start-manifest_v",
+    "src": "tanstack-start-manifest:v",
+    "isDynamicEntry": true
+  },
+  "virtual:cloudflare/worker-entry": {
+    "file": "index.js",
+    "name": "index",
+    "src": "virtual:cloudflare/worker-entry",
+    "isEntry": true,
+    "imports": [
+      "_worker-entry-Le94OTHx.js"
+    ]
+  }
+}
